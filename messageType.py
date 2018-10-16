@@ -26,7 +26,11 @@ class messageTypeWindow(Gtk.Window):
         self.page1.add(Gtk.Label('To create a new message type, please enter a \nmessage type name and select message type field \nvalue pair(s). To update/delete an existing \nmessage type, please select from the existing \nmessage type first and the previously selected \nname and field value pairs(s) will be pre-populated.'))
         listbox = Gtk.ListBox()
         self.page1.add(listbox)
-        listbox.add(self.newModifyWin())
+        listbox.add(self.existingMessageType())
+        listbox.add(self.messageTypeName())
+        listbox.add(self.messageTypeFVP())
+        listbox.add(self.checkBtnRow())
+        listbox.add(self.btnRow())
         self.notebook.append_page(self.page1, Gtk.Label('New/Modify'))
 
         #Dependency Tab
@@ -54,7 +58,7 @@ class messageTypeWindow(Gtk.Window):
         self.notebook.append_page(self.page2, Gtk.Label('Generation'))
 
 
-    def newModifyWin(self):
+    def existingMessageType(self):
         row = Gtk.ListBoxRow()
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         row.add(hbox)
@@ -80,6 +84,75 @@ class messageTypeWindow(Gtk.Window):
         text = combo.get_active_text()
         if text is not None:
 	           print("Selected: currency=%s" % text)
+
+
+    def messageTypeName(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Message Type Name")
+        vbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Message Type Names')
+
+        hbox.pack_start(self.entry, False, True, 0)
+
+        return row
+
+    def messageTypeFVP(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Message Type Field\n Value Pair(s)")
+        vbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Field Value Pair(s)')
+
+        hbox.pack_start(self.entry, False, True, 0)
+
+        return row
+
+    def checkBtnRow(self):
+        row = Gtk.ListBoxRow()
+        #hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        #hbox.pack_start(vbox, False, True, 0)
+        row.add(vbox)
+        check1 = Gtk.CheckButton("Select both field name and value")
+        vbox.pack_start(check1, False, True, 0)
+
+        check2 = Gtk.CheckButton("Select field name only")
+        vbox.pack_start(check2, False, True, 0)
+
+        return row
+
+    def btnRow(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        btn = Gtk.Button.new_with_label("Save")
+        hbox.pack_start(btn, True, True, 0)
+
+        btn = Gtk.Button.new_with_label("Delete")
+        hbox.pack_start(btn, True, True, 0)
+
+        btn = Gtk.Button.new_with_label("Clear")
+        hbox.pack_start(btn, True, True, 0)
+        return row
 
 window = messageTypeWindow()
 window.show_all()
