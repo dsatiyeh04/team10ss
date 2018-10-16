@@ -36,7 +36,14 @@ class messageTypeWindow(Gtk.Window):
         #Dependency Tab
         self.page2 = Gtk.Box()
         self.page2.set_border_width(10)
-        self.page2.add(Gtk.Label('A page with an image for a Title.'))
+        listbox = Gtk.ListBox()
+        self.page2.add(listbox)
+        listbox.add(self.existingMessageType())
+        listbox.add(self.cycleBtn())
+        listbox.add(self.sizeField())
+        listbox.add(self.sizePacket())
+        listbox.add(self.checksum())
+        listbox.add(self.btnRow2())
         self.notebook.append_page(self.page2, Gtk.Label('Dependency'))
 
         #Template Tab
@@ -57,7 +64,7 @@ class messageTypeWindow(Gtk.Window):
         self.page2.add(Gtk.Label('A page with an image for a Title.'))
         self.notebook.append_page(self.page2, Gtk.Label('Generation'))
 
-
+    #------------------New/Modify Tab Rows-------------------------------------
     def existingMessageType(self):
         row = Gtk.ListBoxRow()
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -141,13 +148,115 @@ class messageTypeWindow(Gtk.Window):
         row = Gtk.ListBoxRow()
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         row.add(hbox)
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        hbox.pack_start(vbox, False, True, 0)
 
         btn = Gtk.Button.new_with_label("Save")
         hbox.pack_start(btn, True, True, 0)
 
         btn = Gtk.Button.new_with_label("Delete")
+        hbox.pack_start(btn, True, True, 0)
+
+        btn = Gtk.Button.new_with_label("Clear")
+        hbox.pack_start(btn, True, True, 0)
+        return row
+
+    #--------------------------------------------------------------------------
+    #---------------Dependency Tab Rows----------------------------------------
+
+    def cycleBtn(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+
+        btn = Gtk.Button.new_with_label("Cycle Through Packets")
+        hbox.pack_start(btn, True, True, 0)
+        return row
+
+    def sizeField(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Size of Field")
+        vbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Field Name')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Depends \non")
+        hbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Field Name')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("+")
+        hbox.pack_start(label2,False,True,0)
+
+        return row
+
+
+    def sizePacket(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Size of Packet")
+        vbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Packet')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Depends \non")
+        hbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Field Name')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        return row
+
+    def checksum(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Checksum")
+        vbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Packet')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Depends \non")
+        hbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('List of Field Names')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        return row
+
+    def btnRow2(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+
+        btn = Gtk.Button.new_with_label("Save")
         hbox.pack_start(btn, True, True, 0)
 
         btn = Gtk.Button.new_with_label("Clear")
