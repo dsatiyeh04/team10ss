@@ -49,7 +49,12 @@ class messageTypeWindow(Gtk.Window):
         #Template Tab
         self.page2 = Gtk.Box()
         self.page2.set_border_width(10)
-        self.page2.add(Gtk.Label('A page with an image for a Title.'))
+        listbox = Gtk.ListBox()
+        self.page2.add(listbox)
+        listbox.add(self.existingMessageType())
+        listbox.add(self.cycleBtn())
+        listbox.add(self.messageTypeTemplate())
+        listbox.add(self.btnRow2())
         self.notebook.append_page(self.page2, Gtk.Label('Template'))
 
         #Equivalency Tab
@@ -261,6 +266,27 @@ class messageTypeWindow(Gtk.Window):
 
         btn = Gtk.Button.new_with_label("Clear")
         hbox.pack_start(btn, True, True, 0)
+        return row
+    #---------------------------------------------------------------------------
+
+    #----------------------Template Tab-----------------------------------------
+
+    def messageTypeTemplate(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Message Type \nTemplate Field Value \nPair(s)")
+        vbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('List of Field Value Pair(s)')
+
+        hbox.pack_start(self.entry, False, True, 0)
+
         return row
 
 window = messageTypeWindow()
