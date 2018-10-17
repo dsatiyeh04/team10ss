@@ -264,15 +264,11 @@ class mainWindow(Gtk.Window):
 		listbox_3.add(self.packetAreaName())
 		listbox_3.add(self.treeFrame())
 
+		listbox_4 = Gtk.ListBox()
+		listbox_4.set_selection_mode(Gtk.SelectionMode.NONE)
+		sessionbox.pack_start(listbox_4,False,False,0)
 
-
-
-		
-		
-
-
-
-	
+		listbox_4.add(self.bottomarea())
 
 		return sessionbox
 
@@ -468,38 +464,150 @@ class mainWindow(Gtk.Window):
 			vbox.add(clear)
 			return row
 
-	# def on_toggled(self, widget, path):
-	# 	current_value = self.store[path][1]
-	# 	self.store[path][1] = not current_value
-	# 	current_value = not current_value
-	# 	# if length of the path is 1 (that is, if we are selecting an author)
-	# 	if len(path) == 1:
-	# 		# get the iter associated with the path
-	# 		piter = self.store.get_iter(path)
-	# 		# get the iter associated with its first child
-	# 		citer = self.store.iter_children(piter)
-	# 		# while there are children, change the state of their boolean value
-	# 		# to the value of the author
-	# 		while citer is not None:
-	# 			self.store[citer][1] = current_value
-	# 			citer = self.store.iter_next(citer)
-	# 	# if the length of the path is not 1 (that is, if we are selecting a
-	# 	# book)
-	# 	elif len(path) != 1:
-	# 		# get the first child of the parent of the book (the first book of
-	# 		# the author)
-	# 		citer = self.store.get_iter(path)
-	# 		piter = self.store.iter_parent(citer)
-	# 		citer = self.store.iter_children(piter)
-	# 		# check if all the children are selected
-	# 		all_selected = True
-	# 		while citer is not None:
-	# 			if self.store[citer][1] == False:
-	# 				all_selected = False
-	# 				break
-	# 				citer = self.store.iter_next(citer)
-	# 		# if they do, the author as well is selected; otherwise it is not
-	# 		self.store[piter][1] = all_selected
+	def bottomarea(self):
+		bottomrow = Gtk.ListBoxRow()
+		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+		bottomrow.add(hbox)
+
+		hbox.pack_start(self.fieldarea(),True,True,0)
+		hbox.add(self.masomenos())
+		hbox.pack_end(self.messagetypearea(),True,True,0)
+
+		return bottomrow
+
+	def fieldarea(self):
+		bigboxfieldarea = Gtk.ListBoxRow()
+		vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+		bigboxfieldarea.add(vbox)
+
+
+		buttonslane = Gtk.Button(label = "Clear") #at the end subtitles
+
+		vbox.add(self.fieldAreaName())
+		vbox.add(self.fieldattributes())#the tree view
+		vbox.add(self.fieldareainstructions())
+
+		
+
+
+		return bigboxfieldarea
+
+	def fieldAreaName(self):
+		row = Gtk.ListBoxRow()
+		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+		row.add(hbox)
+
+		label1 = Gtk.Label()
+		label1.set_markup("<u>Field Area</u> ")
+		hbox.pack_start(label1, False, True, 0)
+
+
+		return row
+
+	def masomenos(self):
+		buttonbox = Gtk.ListBoxRow()
+		vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
+		buttonbox.add(vbox)
+
+		mas = Gtk.Button(label = "+") #the label
+		menos = Gtk.Button(label = "-") # teh actual excel looking sheet
+
+		vbox.add(mas)
+		vbox.add(menos)
+
+		return buttonbox
+
+	def messagetypearea(self):
+		bigboxmessagetypearea = Gtk.ListBoxRow()
+		hbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+		bigboxmessagetypearea.add(hbox)
+
+		remove = Gtk.Button(label = "Remove") #the label
+		clear = Gtk.Button(label = "Clear") # teh actual excel looking sheet
+
+		hbox.add(remove)
+		hbox.add(clear)
+
+		return bigboxmessagetypearea
+
+	def fieldattributes(self):
+		scrollwindow=Gtk.ScrolledWindow(hadjustment=None, vadjustment=None)
+		bigboxfieldatt = Gtk.ListBoxRow()
+		hbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+		bigboxfieldatt.add(hbox)
+
+		columns = ["Field Name","Show Name","Size", "Position", "Show", "Value", "Entropy"]
+
+		fieldnameatt = [["icmp.type", "Type 8[Echo(ping)request]", "1","34", "8","08","2"],
+		["icmp.code", "Code 0", "1","35", "0x00","00","2"],
+		["icmp.checksum", "Checksum:0x6891(correct)", "0x00","36", "0x6861","6861","0"],
+		["icmp.Ident", "Identifier:0x809e", "2","38", "0x809e","809e","2"],
+		["icmp.seq", "Sequence number:0x0f00", "2","40", "0x0f00","0f00","2"]]
+
+		# the data in the model (three strings for each row, one for each column)
+		listmodel = Gtk.ListStore(str, str, str, str, str, str, str)
+		# append the values in the model
+		for i in range(len(fieldnameatt)):
+			listmodel.append(fieldnameatt[i])
+
+		# a treeview to see the data stored in the model
+		view = Gtk.TreeView(model=listmodel)
+		# for each column
+		cell1= Gtk.CellRendererToggle()
+		col1=Gtk.TreeViewColumn("",cell1, active =1)
+		view.append_column(col1)
+
+		for i, column in enumerate(columns):
+			# cellrenderer to render the text
+			cell = Gtk.CellRendererText()
+			# the text in the first column should be in boldface
+			if i == 0:
+				cell.props.weight_set = True
+				# cell.props.weight = Pango.Weight.BOLD
+			# the column is created
+			col = Gtk.TreeViewColumn(column, cell, text=i)
+			# and it is appended to the treevie
+			view.append_column(col)
+
+		# when a row is selected, it emits a signal
+		view.get_selection().connect("changed", self.on_changed)
+
+		# # the label we use to show the selection
+		# self.label = Gtk.Label()
+		# self.label.set_text("")
+
+		# a grid to attach the widgets
+		grid = Gtk.Grid()
+		grid.attach(view, 0, 0, 1, 1)
+		# grid.attach(self.label, 0, 1, 1, 1)
+		# attach the grid to the window
+		hbox.add(grid)
+
+		scrollwindow.add(bigboxfieldatt)
+
+		return scrollwindow
+
+	def on_changed(self, selection):#NOT IN USE YET
+		# get the model and the iterator that points at the data in the model
+		(model, iter) = selection.get_selected()
+		# set the label to a new value depending on the selection
+		self.label.set_text("\n %s %s %s" %
+			(model[iter][0],  model[iter][1], model[iter][2]))
+		return True
+
+	def fieldareainstructions(self):
+		row = Gtk.ListBoxRow()
+		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+		row.add(hbox)
+
+		label1 = Gtk.Label()
+		label1.set_markup("[ ] Select all fields      Field Name, ShowName, Value, and Length, are editable fields.")
+		hbox.pack_start(label1, False, True, 0)
+
+
+		return row
+
+
 
 
 
