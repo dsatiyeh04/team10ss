@@ -1,3 +1,5 @@
+import math
+
 import gi
 
 gi.require_version('Gtk', '3.0')
@@ -7,21 +9,25 @@ from gi.repository.GdkPixbuf import Pixbuf
 
 class stateMachineWindow(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="State Machine Overlay")
-        self.set_border_width(10)
-        hb = Gtk.HeaderBar(title="State Machine Area")
+        Gtk.Window.__init__(self, title="State Machine Area")
+        self.set_size_request(390, 240)
+        #self.set_position(Gtk.WIN_POS_CENTER)
 
-        self.set_titlebar(hb)
-        closebutton = Gtk.Button()
-        closebutton.set_relief(Gtk.ReliefStyle.NONE)
-        img = Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU)
-        closebutton.set_image(img)
-        closebutton.connect("clicked", Gtk.main_quit)
-        hb.pack_end(closebutton)
+        self.connect("destroy", Gtk.main_quit)
 
-        self.state = Gtk.DrawingArea()
-        self.add(self.state)
+        darea = Gtk.DrawingArea()
+        darea.connect("draw", self.expose)
+        self.add(darea)
 
+        self.show_all()
+
+    def expose(self, widget, event):
+        cr = widget.get_property('window').cairo_create()
+        cr.set_source_rgb(0.6, 0.6, 0.6)
+
+        #cr.rectangle(20, 20, 120, 80)
+        cr.rectangle(180, 20, 80, 80)
+        cr.fill()
 
 window = stateMachineWindow()
 window.show_all()
