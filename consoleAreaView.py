@@ -5,7 +5,7 @@ from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf
 
 
-class terminalWindow(Gtk.Window):
+class consoleAreaWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Terminal Overlay")
         self.set_border_width(10)
@@ -18,23 +18,22 @@ class terminalWindow(Gtk.Window):
 
         listbox = Gtk.ListBox()
 
-        listbox.add(self.terminalW())
+        listbox.add(self.consoleW())
         hbox.pack_start(listbox, False, True, 0)
 
-    def terminalW(self):
+    def consoleW(self):
         row = Gtk.ListBox()
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         row.add(hbox)
 
-
-        entry1 = Gtk.Entry()
-        entry1.set_text('[Destination Folder Path]> [Generated Files]')
-        hbox.pack_start(entry1, False, True, 0)
+        label2 = Gtk.Label()
+        label2.set_markup("No error message to show")
+        hbox.pack_start(label2, False, True, 0)
 
 
 
         return row
 
-window = terminalWindow()
+window = consoleAreaWindow()
 window.show_all()
 Gtk.main()

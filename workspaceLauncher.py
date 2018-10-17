@@ -11,13 +11,7 @@ class workspaceLauncherWindow(Gtk.Window):
         self.set_border_width(10)
         hb = Gtk.HeaderBar(title="Workspace Launcher")
 
-        self.set_titlebar(hb)
-        closebutton = Gtk.Button()
-        closebutton.set_relief(Gtk.ReliefStyle.NONE)
-        img = Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU)
-        closebutton.set_image(img)
-        closebutton.connect("clicked", Gtk.main_quit)
-        hb.pack_end(closebutton)
+        self.connect("destroy", Gtk.main_quit)
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(hbox)
