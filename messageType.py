@@ -60,13 +60,21 @@ class messageTypeWindow(Gtk.Window):
         #Equivalency Tab
         self.page2 = Gtk.Box()
         self.page2.set_border_width(10)
-        self.page2.add(Gtk.Label('A page with an image for a Title.'))
+        listbox = Gtk.ListBox()
+        self.page2.add(listbox)
+        listbox.add(self.fieldEq())
+        listbox.add(self.fieldEq2())
         self.notebook.append_page(self.page2, Gtk.Label('Equivalency'))
 
         #Generation Tab
         self.page2 = Gtk.Box()
         self.page2.set_border_width(10)
-        self.page2.add(Gtk.Label('A page with an image for a Title.'))
+        listbox = Gtk.ListBox()
+        self.page2.add(listbox)
+        listbox.add(self.existingMessageType())
+        listbox.add(self.msgTemplateOutput())
+        listbox.add(self.messageTempName())
+        listbox.add(self.btnRow3())
         self.notebook.append_page(self.page2, Gtk.Label('Generation'))
 
     #------------------New/Modify Tab Rows-------------------------------------
@@ -288,7 +296,125 @@ class messageTypeWindow(Gtk.Window):
         hbox.pack_start(self.entry, False, True, 0)
 
         return row
+    #---------------------------------------------------------------------------
 
+    #-----------------Equivalency Tab-------------------------------------------
+
+    def fieldEq(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Field Equivalency")
+        vbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Field Name')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Of")
+        hbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Message Type')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("=")
+        hbox.pack_start(label2,False,True,0)
+
+        return row
+
+    def fieldEq2(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("                                   ")
+        vbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Field Name')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Depends \non")
+        hbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Field Name')
+        hbox.pack_start(self.entry, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("+")
+        hbox.pack_start(label2,False,True,0)
+
+        return row
+
+    #---------------------------------------------------------------------------
+
+    #-----------------------Generation Tab--------------------------------------
+    def msgTemplateOutput(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Message Template \nOutput Format")
+        vbox.pack_start(label2,False,True,0)
+
+        messageT = ["Hi", "this", "are", "message types"]
+        messageT_combo = Gtk.ComboBoxText()
+        messageT_combo.set_entry_text_column(0)
+        messageT_combo.connect("changed", self.on_messageT_combo_changed)
+        for message in messageT:
+            messageT_combo.append_text(message)
+
+        hbox.pack_start(messageT_combo, False, True, 0)
+
+        return row
+
+
+    def messageTempName(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(vbox, False, True, 0)
+
+        label2 =Gtk.Label()
+        label2.set_markup("Message Template \nName")
+        vbox.pack_start(label2,False,True,0)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text('Message Template Name')
+
+        hbox.pack_start(self.entry, False, True, 0)
+
+        return row
+
+    def btnRow3(self):
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        row.add(hbox)
+
+        btn = Gtk.Button.new_with_label("Generate")
+        hbox.pack_start(btn, True, True, 0)
+
+        btn = Gtk.Button.new_with_label("Clear")
+        hbox.pack_start(btn, True, True, 0)
+        return row
+
+    #---------------------------------------------------------------------------
 window = messageTypeWindow()
 window.show_all()
 Gtk.main()
