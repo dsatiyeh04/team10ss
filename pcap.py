@@ -5,7 +5,7 @@ from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf
 
 
-class workspaceLauncherWindow(Gtk.Window):
+class pcapWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="PCAP Overlay")
         self.set_border_width(10)
@@ -86,6 +86,6 @@ class workspaceLauncherWindow(Gtk.Window):
 
 
 
-window = workspaceLauncherWindow()
+window = pcapWindow()
 window.show_all()
 Gtk.main()

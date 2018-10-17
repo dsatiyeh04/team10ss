@@ -5,7 +5,7 @@ from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf
 
 
-class workspaceLauncherWindow(Gtk.Window):
+class openSessionrWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Open Session Overlay")
         self.set_border_width(10)
@@ -65,6 +65,6 @@ class workspaceLauncherWindow(Gtk.Window):
 
 
 
-window = workspaceLauncherWindow()
+window = openSessionWindow()
 window.show_all()
 Gtk.main()
