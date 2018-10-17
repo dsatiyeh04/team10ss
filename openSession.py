@@ -7,9 +7,9 @@ from gi.repository.GdkPixbuf import Pixbuf
 
 class workspaceLauncherWindow(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="New Session Overlay")
+        Gtk.Window.__init__(self, title="Open Session Overlay")
         self.set_border_width(10)
-        hb = Gtk.HeaderBar(title="New Session")
+        hb = Gtk.HeaderBar(title="Open Session")
 
         self.set_titlebar(hb)
         closebutton = Gtk.Button()
@@ -24,9 +24,8 @@ class workspaceLauncherWindow(Gtk.Window):
 
         listbox = Gtk.ListBox()
 
-        listbox.add(Gtk.Label('                Create New Session                '))
+        listbox.add(Gtk.Label('                Open an Existing Session                '))
         listbox.add(self.sessionName())
-        listbox.add(self.descrProj())
         listbox.add(self.bottomBttn())
         hbox.pack_start(listbox, False, True, 0)
 
@@ -42,25 +41,11 @@ class workspaceLauncherWindow(Gtk.Window):
         vbox.pack_start(label2, False, True, 0)
 
         entry1 = Gtk.Entry()
-        entry1.set_text('Project Name')
+        entry1.set_text('Session Name')
         vbox.pack_start(entry1, False, True, 0)
 
-        return row
-
-    def descrProj(self):
-        row = Gtk.ListBox()
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        row.add(hbox)
-        vbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=30)
-        hbox.pack_start(vbox, False, True, 0)
-
-        label2 = Gtk.Label()
-        label2.set_markup("Description")
-        vbox.pack_start(label2, False, True, 0)
-
-        entry1 = Gtk.Entry()
-        entry1.set_text('Description of Project')
-        vbox.pack_start(entry1, False, True, 0)
+        browse1 = Gtk.Button.new_with_label("Browse")
+        vbox.pack_start(browse1, False, True, 0)
 
         return row
 
@@ -69,13 +54,16 @@ class workspaceLauncherWindow(Gtk.Window):
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         row.add(hbox)
 
-        btn = Gtk.Button.new_with_label("Create")
+        btn = Gtk.Button.new_with_label("Open")
         hbox.pack_start(btn, True, True, 0)
 
         btn = Gtk.Button.new_with_label("Cancel")
         hbox.pack_start(btn, True, True, 0)
 
         return row
+
+
+
 
 window = workspaceLauncherWindow()
 window.show_all()
