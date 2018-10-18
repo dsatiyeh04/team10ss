@@ -57,28 +57,28 @@ class mainWindow(Gtk.Window):
 
 	def terminalClick(self, widget):
 		from terminal import terminalWindow
-		var1 = terminalWindow()
-		var1.show()
+		#var1 = terminalWindow()
+		#var1.show()
 
 	def pcapClick(self, widget):
-		from pcap import pcapindow
-		var1 = pcapindow()
-		var1.show()
+		from pcap import pcapWindow
+		#var1 = pcapWindow()
+		#var1.show()
 
 	def openSessionClick(self, widget):
 		from openSession import openSessionWindow
-		var1 = openSessionWindow()
-		var1.show()
+		#var1 = openSessionWindow()
+		#var1.show()
 
 	def newSessionClick(self, widget):
 		from newSession import newSessionWindow
-		var1 = newSessionWindow()
-		var1.show()
+		#var1 = newSessionWindow()
+		#var1.show()
 
 	def workspaceLauncherClick(self, widget):
 		from workspaceLauncher import workspaceLauncherWindow
-		var1 = workspaceLauncherWindow()
-		var1.show()
+		#var1 = workspaceLauncherWindow()
+		#var1.show()
 
 	def mainListBox(self):
 		mainListBox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
