@@ -1,4 +1,5 @@
 import gi
+#import workspaceLauncher
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf
@@ -412,9 +413,18 @@ class messageTypeWindow(Gtk.Window):
 
         btn = Gtk.Button.new_with_label("Clear")
         hbox.pack_start(btn, True, True, 0)
+
+        btn.connect("clicked", self.btn_click)
         return row
 
     #---------------------------------------------------------------------------
+
+    def btn_click(self, widget):
+        from workspaceLauncher import workspaceLauncherWindow
+        window.destroy()
+        var1 = workspaceLauncherWindow()
+        var1.show()
+
 window = messageTypeWindow()
 window.show_all()
 Gtk.main()

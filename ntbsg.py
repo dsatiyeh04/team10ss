@@ -1,6 +1,6 @@
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gio 
+from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf
 
 class mainWindow(Gtk.Window):
@@ -29,6 +29,13 @@ class mainWindow(Gtk.Window):
 		openPCAP = Gtk.Button(label="Open PCAP")
 		terminal =Gtk.Button(label="Terminal")
 
+		switchWorkspace.connect("clicked", self.workspaceLauncherClick)
+		createSession.connect("clicked", self.newSessionClick)
+		openSession.connect("clicked", self.openSessionClick)
+		openPCAP.connect("clicked", self.pcapClick)
+		terminal.connect("clicked", self.terminalClick)
+
+
 		hb.pack_end(terminal)
 		hb.pack_end(openPCAP)
 		hb.pack_end(switchWorkspace)
@@ -48,9 +55,34 @@ class mainWindow(Gtk.Window):
 		mainbox.pack_start(mainListbox, False, False, 0) # box, cihld, expand ,fill, padding
 		mainListbox.add(self.mainListBox())
 
+	def terminalClick(self, widget):
+		from terminal import terminalWindow
+		var1 = terminalWindow()
+		var1.show()
+
+	def pcapClick(self, widget):
+		from pcap import pcapindow
+		var1 = pcapindow()
+		var1.show()
+
+	def openSessionClick(self, widget):
+		from openSession import openSessionWindow
+		var1 = openSessionWindow()
+		var1.show()
+
+	def newSessionClick(self, widget):
+		from newSession import newSessionWindow
+		var1 = newSessionWindow()
+		var1.show()
+
+	def workspaceLauncherClick(self, widget):
+		from workspaceLauncher import workspaceLauncherWindow
+		var1 = workspaceLauncherWindow()
+		var1.show()
+
 	def mainListBox(self):
 		mainListBox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-		
+
 		listbox = Gtk.ListBox()
 		listbox.set_selection_mode(Gtk.SelectionMode.NONE)
 		mainListBox.pack_start(listbox, False, False, 0)
@@ -68,10 +100,10 @@ class mainWindow(Gtk.Window):
 
 
 
-	
+
 	def sessionviewCol(self):
 		sessionbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-		
+
 		listbox = Gtk.ListBox()
 		listbox.set_selection_mode(Gtk.SelectionMode.NONE)
 		sessionbox.pack_start(listbox, False, False, 0)
@@ -241,7 +273,7 @@ class mainWindow(Gtk.Window):
 
 	def pdmlviewCol(self):
 		sessionbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-		
+
 		listbox = Gtk.ListBox()
 		listbox.set_selection_mode(Gtk.SelectionMode.NONE)
 		sessionbox.pack_start(listbox, False, False, 0)
@@ -399,7 +431,7 @@ class mainWindow(Gtk.Window):
 
 		frame = [
 		["Frame 718: frame, eth, ic, tcp",
-		["Frame 718:74 bytes on wire (592 bits), 74 bytes captured (592 bits) on interface 0", True], 
+		["Frame 718:74 bytes on wire (592 bits), 74 bytes captured (592 bits) on interface 0", True],
 		["Ehernet II: Src: Elitegro_dd:12:cd(00:19:21:dd:12:cd), Dst:Broadcom_de:ad:05(00:10:18:de:ad:05)", False],
 		["Internet Control Message Protocol",False],
 		["Tramsimission Control Protocol, Src Port: (55394), Dst Port: 80 (80), Seq:0,Len:0",False]],
@@ -487,7 +519,7 @@ class mainWindow(Gtk.Window):
 		vbox.add(self.fieldattributes())#the tree view
 		vbox.add(self.fieldareainstructions())
 
-		
+
 
 
 		return bigboxfieldarea
