@@ -11,4 +11,5 @@ for packet in root.iter('packet'):
         if proto.get('name') != 'lapd':
             packet.remove(proto)
 
+
 tree.write("output.pdml")
