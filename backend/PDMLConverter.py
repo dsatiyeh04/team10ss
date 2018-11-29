@@ -10,8 +10,8 @@ class PDMLConverter:
 
         else:
 
-            cmd = "tshark -T pdml -r " + self.pcap + " > test.pdml"
+            cmd = "tshark -T pdml -r " + self.pcap +".pcap" + " > " + self.pcap + ".pdml"
             os.system(cmd)
 
 foo = PDMLConverter()
-foo.convertPCAP("abis-accept-network.pcap")
+foo.convertPCAP("abis-accept-network")
