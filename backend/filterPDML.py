@@ -8,8 +8,7 @@ root = tree.getroot()
 
 for packet in root.iter('packet'):
     for proto in packet.findall('proto'):
-        if proto.get('name') == 'lapd':
-            # print(proto.get('name'))
-            # create a new PDML file
-            f = open("testFILTER.pdml", "w+")
-            # f.write()
+        if proto.get('name') != 'lapd':
+            packet.remove(proto)
+
+tree.write("output.pdml")
