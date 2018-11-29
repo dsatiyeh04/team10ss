@@ -32,11 +32,11 @@ class pcapWindow(Gtk.Window):
         hbox.pack_start(vbox, False, True, 0)
 
         label2 = Gtk.Label()
-        label2.set_markup("Session Name")
+        label2.set_markup("PCAP Name")
         vbox.pack_start(label2, False, True, 0)
 
         entry1 = Gtk.Entry()
-        entry1.set_text('Project Name')
+        entry1.set_text('Dissector Name')
         vbox.pack_start(entry1, False, True, 0)
 
         browse1 = Gtk.Button.new_with_label("Browse")
@@ -56,7 +56,7 @@ class pcapWindow(Gtk.Window):
         vbox.pack_start(label2, False, True, 0)
 
         entry1 = Gtk.Entry()
-        entry1.set_text('Description of Project')
+        entry1.set_text('Optional Dissector')
         vbox.pack_start(entry1, False, True, 0)
 
         browse1 = Gtk.Button.new_with_label("Browse")
