@@ -14,4 +14,4 @@ class PDMLConverter:
             os.system(cmd)
 
 foo = PDMLConverter()
-foo.convertPCAP("abis-accept-network")
+foo.convertPCAP("ipv4frags")
