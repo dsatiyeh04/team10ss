@@ -1,4 +1,11 @@
 import gi
+import sys
+import os
+from Tkinter import Tk
+from tkFileDialog import askopenfilename
+
+sys.path.insert(0, '/root/Documents/team10ss/backend/')
+from PDMLConverter import PDMLConverter
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio
@@ -32,17 +39,26 @@ class pcapWindow(Gtk.Window):
         hbox.pack_start(vbox, False, True, 0)
 
         label2 = Gtk.Label()
-        label2.set_markup("Session Name")
+        label2.set_markup("PCAP Name")
         vbox.pack_start(label2, False, True, 0)
 
         entry1 = Gtk.Entry()
-        entry1.set_text('Project Name')
+        # entry1.set_text('Project Name')
         vbox.pack_start(entry1, False, True, 0)
 
         browse1 = Gtk.Button.new_with_label("Browse")
+        browse1.connect("clicked", self.browse_clicked, entry1)
         vbox.pack_start(browse1, False, True, 0)
 
         return row
+    def browse_clicked(self, button, *data):
+        # os.system('xdg-open "/"')
+        Tk().withdraw()
+        filename = askopenfilename()
+        name = filename.split('/')
+        # print(name[-1])
+        # print(data[0])
+        data[0].set_text(name[-1])
 
     def dissName(self):
         row = Gtk.ListBox()
@@ -70,6 +86,7 @@ class pcapWindow(Gtk.Window):
         row.add(hbox)
 
         btn = Gtk.Button.new_with_label("Convert to PDML")
+        btn.connect("clicked", self.convert_btn_clicked)
         hbox.pack_start(btn, True, True, 0)
 
         btn = Gtk.Button.new_with_label("Cancel")
@@ -77,6 +94,9 @@ class pcapWindow(Gtk.Window):
 
         return row
 
+    def convert_btn_clicked(self, button):
+        foo = PDMLConverter()
+        foo.convertPCAP("ipv4frags")
 
 
 

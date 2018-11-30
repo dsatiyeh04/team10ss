@@ -5,7 +5,7 @@
 
 <packet>
   <proto name="icmp" pos="0" showname="Internet Control Message Protocol" size="1408">
-    <field name="icmp.type" pos="0" show="8" showname="Type: 8 (Echo (ping) request)" size="1" value="08" />
+    <field name="icmp.type" pos="0" show="8" showname="Type: 8 (Echo (ping) request)" size="1" tag="TEST" value="08" />
     <field name="icmp.code" pos="1" show="0" showname="Code: 0" size="1" value="00" />
     <field name="icmp.checksum" pos="2" show="0x00004d71" showname="Checksum: 0x4d71 [correct]" size="2" value="4d71" />
     <field name="icmp.checksum.status" pos="2" show="1" showname="Checksum Status: Good" size="0" />

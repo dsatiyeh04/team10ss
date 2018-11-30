@@ -12,6 +12,3 @@ class PDMLConverter:
 
             cmd = "tshark -T pdml -r " + self.pcap +".pcap" + " > " + self.pcap + ".pdml"
             os.system(cmd)
-
-foo = PDMLConverter()
-foo.convertPCAP("ipv4frags")
