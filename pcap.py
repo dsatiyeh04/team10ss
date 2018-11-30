@@ -39,7 +39,7 @@ class pcapWindow(Gtk.Window):
         hbox.pack_start(vbox, False, True, 0)
 
         label2 = Gtk.Label()
-        label2.set_markup("PCAP Name")
+        label2.set_markup("PCAP File")
         vbox.pack_start(label2, False, True, 0)
 
         entry1 = Gtk.Entry()
@@ -56,8 +56,6 @@ class pcapWindow(Gtk.Window):
         Tk().withdraw()
         filename = askopenfilename()
         name = filename.split('/')
-        # print(name[-1])
-        # print(data[0])
         data[0].set_text(name[-1])
 
     def dissName(self):
