@@ -66,15 +66,16 @@ class pcapWindow(Gtk.Window):
         hbox.pack_start(vbox, False, True, 0)
 
         label2 = Gtk.Label()
-        label2.set_markup("Description")
+        label2.set_markup("Disssector Name")
         vbox.pack_start(label2, False, True, 0)
 
-        entry1 = Gtk.Entry()
-        entry1.set_text('Description of Project')
-        vbox.pack_start(entry1, False, True, 0)
+        entry2 = Gtk.Entry()
+        entry2.set_text('Optional Dissector')
+        vbox.pack_start(entry2, False, True, 0)
 
-        browse1 = Gtk.Button.new_with_label("Browse")
-        vbox.pack_start(browse1, False, True, 0)
+        browse2 = Gtk.Button.new_with_label("Browse")
+        browse2.connect("clicked", self.browse_clicked, entry2)
+        vbox.pack_start(browse2, False, True, 0)
 
         return row
 
@@ -95,6 +96,8 @@ class pcapWindow(Gtk.Window):
     def convert_btn_clicked(self, button):
         foo = PDMLConverter()
         foo.convertPCAP("ipv4frags")
+
+
 
 
 
