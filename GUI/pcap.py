@@ -4,15 +4,20 @@ import os
 from Tkinter import Tk
 from tkFileDialog import askopenfilename
 
-sys.path.insert(0, '/root/Documents/team10ss/backend/')
+sys.path.append('/root/Documents/team10ss/backend/')
 from PDMLConverter import PDMLConverter
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf
 
+sys.path.append('/root/Documents/team10ss/')
+from controller import Controller
 
 class pcapWindow(Gtk.Window):
+
+    pcapFile = ''
+
     def __init__(self):
         Gtk.Window.__init__(self, title="PCAP Overlay")
         self.set_border_width(10)
@@ -57,6 +62,9 @@ class pcapWindow(Gtk.Window):
         filename = askopenfilename()
         name = filename.split('/')
         data[0].set_text(name[-1])
+        global pcapFile
+        pcapFile = filename
+
 
     def dissName(self):
         row = Gtk.ListBox()
@@ -94,8 +102,8 @@ class pcapWindow(Gtk.Window):
         return row
 
     def convert_btn_clicked(self, button):
-        foo = PDMLConverter()
-        foo.convertPCAP("ipv4frags")
+        foo = Controller()
+        foo.convertPCAP(pcapFile)
 
 
 
