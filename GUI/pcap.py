@@ -86,7 +86,7 @@ class pcapWindow(Gtk.Window):
         vbox.pack_start(browse2, False, True, 0)
 
         return row
-
+    # Buttons
     def bottomBttn(self):
         row = Gtk.ListBoxRow()
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -100,7 +100,7 @@ class pcapWindow(Gtk.Window):
         hbox.pack_start(btn, True, True, 0)
 
         return row
-    # Method to call controller 
+    # Method to call controller
     def convert_btn_clicked(self, button):
         foo = Controller()
         foo.convertPCAP(pcapFile)
