@@ -100,7 +100,7 @@ class pcapWindow(Gtk.Window):
         hbox.pack_start(btn, True, True, 0)
 
         return row
-
+    # Method to call controller 
     def convert_btn_clicked(self, button):
         foo = Controller()
         foo.convertPCAP(pcapFile)
