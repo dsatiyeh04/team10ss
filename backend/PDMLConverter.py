@@ -9,6 +9,6 @@ class PDMLConverter:
             print("Empty File")
 
         else:
-
-            cmd = "tshark -T pdml -r " + self.pcap +".pcap" + " > " + self.pcap + ".pdml"
+            pdml = self.pcap.split('.')
+            cmd = "tshark -T pdml -r " + str(self.pcap) + " > " + pdml[0] + ".pdml"
             os.system(cmd)

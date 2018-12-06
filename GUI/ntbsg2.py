@@ -3,7 +3,6 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf
 
-
 class mainWindow(Gtk.Window):
 	def __init__(self):
 		Gtk.Window.__init__(self, title= "Network Traffic Based Software Generation")
@@ -558,12 +557,12 @@ class mainWindow(Gtk.Window):
 		hbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 		bigboxmessagetypearea.add(hbox)
 
-		
+
 		##import messageType
 		##var1 = messageType()
 		##var1.show()
-		
-		
+
+
 		return bigboxmessagetypearea
 
 
@@ -577,9 +576,9 @@ class mainWindow(Gtk.Window):
 		hbox.pack_start(label1, False, True, 0)
 
 
-	
+
 		return bigboxmessagetypearea
-	
+
 
 	def fieldattributes(self):
 		scrollwindow=Gtk.ScrolledWindow(hadjustment=None, vadjustment=None)

@@ -57,13 +57,13 @@ class pcapWindow(Gtk.Window):
 
         return row
     def browse_clicked(self, button, *data):
-        # os.system('xdg-open "/"')
         Tk().withdraw()
         filename = askopenfilename()
         name = filename.split('/')
         data[0].set_text(name[-1])
         global pcapFile
         pcapFile = filename
+        self.connect("destroy", Gtk.main_quit)
 
 
     def dissName(self):
