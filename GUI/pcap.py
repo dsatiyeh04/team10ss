@@ -14,6 +14,7 @@ from gi.repository.GdkPixbuf import Pixbuf
 sys.path.append('/root/Documents/team10ss/')
 from controller import Controller
 
+
 class pcapWindow(Gtk.Window):
 
     pcapFile = ''

@@ -1,7 +1,15 @@
 import gi
+import sys
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf
+
+sys.path.append('/root/Documents/team10ss')
+from controller import Controller
+
+
+controller = Controller()
 
 class mainWindow(Gtk.Window):
 	def __init__(self):
@@ -374,12 +382,13 @@ class mainWindow(Gtk.Window):
 		hbox.pack_start(label1, False, True, 0)
 
 
-		self.entry = Gtk.Entry()
-		self.entry.set_text('Filter Expression')
-		hbox.pack_start(self.entry, False, False, 0)
+		filter = Gtk.Entry()
+		# self.entry.set_text('Filter Expression')
+		hbox.pack_start(filter, False, False, 0)
 
 		label2 =Gtk.Button(label = "Apply")
 		hbox.pack_start(label2,False,False,0)
+		label2.connect("clicked", self.apply_clicked, filter)
 
 		savecurrButton =Gtk.Button(label = "Clear")
 		hbox.pack_start(savecurrButton,False,False,0)
@@ -406,6 +415,9 @@ class mainWindow(Gtk.Window):
 
 
 		return row
+
+	def apply_clicked(self, button, *data):
+		controller.filterPDML(data[0].get_text())
 
 	def on_savedfiltercombo(self, combo):
 		text = combo.get_active_text()
