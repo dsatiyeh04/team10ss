@@ -1,6 +1,5 @@
 import os
 
-
 class PDMLConverter:
     def convertPCAP(self, pcap):
         self.pcap = pcap
