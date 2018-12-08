@@ -1,7 +1,7 @@
 import sys
 
 # Controller class
-sys.path.append('/root/Documents/team10ss/backend/')
+sys.path.append('/root/Documents/team10ss/backend/Workspace')
 from PDMLConverter import PDMLConverter
 
 

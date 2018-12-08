@@ -4,8 +4,8 @@ import os
 from Tkinter import Tk
 from tkFileDialog import askopenfilename
 
-sys.path.append('/root/Documents/team10ss/backend/')
-from PDMLConverter import PDMLConverter
+# sys.path.append('/root/Documents/team10ss/backend/Workspace')
+# from PDMLConverter import PDMLConverter
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio
