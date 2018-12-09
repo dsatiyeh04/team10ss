@@ -7,6 +7,7 @@
 
 
 import os
+import sys
 
 
 class PDMLConverter:
@@ -36,5 +37,6 @@ class PDMLConverter:
             pdml = pdml[-1].split('.')
             versions = open(path+"versions", "r+")
             version = versions.read()
-            cmd = "tshark -T pdml -r " + str(self.pcap) + " > " + path + pdml[0] + "_v"+version + ".pdml"
+            pdmlFile = path + pdml[0] + "_v"+version + ".pdml"
+            cmd = "tshark -T pdml -r " + str(self.pcap) + " > " + pdmlFile
             os.system(cmd)
