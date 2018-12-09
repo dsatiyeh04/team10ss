@@ -6,7 +6,7 @@ sys.path.append('/root/Documents/team10ss/backend/Analysis/PDML')
 from PDML_Manager import PDML
 
 class Filter:
-    def parsePacket(self):
+    def parsePacket(self, filter):
         pdml = PDML()
         pdmlFile = pdml.getFilename()
         print "PDML: " + pdmlFile
@@ -29,7 +29,7 @@ class Filter:
                 #     # change found back to zero because then it wont read anymore packets
                 #     found = 0
 
-                if proto.get('name') != 'icmp':
+                if proto.get('name') != filter:
                     packet.remove(proto)
         # f= open("/root/Documents/team10ss/backend/Workspace/sessionCount.txt","r+")
         # count = f.read()
@@ -46,5 +46,5 @@ class Filter:
         pdml.setFilename()
         print pdml.getFilename()
         tree.write(pdml.getFilename())
-filter = Filter()
-filter.parsePacket()
+# filter = Filter()
+# filter.parsePacket()

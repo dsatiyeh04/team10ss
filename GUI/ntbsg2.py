@@ -385,10 +385,10 @@ class mainWindow(Gtk.Window):
 		filter = Gtk.Entry()
 		# self.entry.set_text('Filter Expression')
 		hbox.pack_start(filter, False, False, 0)
+		filter.set_editable(False)
 
 		label2 =Gtk.Button(label = "Apply")
 		hbox.pack_start(label2,False,False,0)
-		label2.connect("clicked", self.apply_clicked, filter)
 
 		savecurrButton =Gtk.Button(label = "Clear")
 		hbox.pack_start(savecurrButton,False,False,0)
@@ -411,12 +411,14 @@ class mainWindow(Gtk.Window):
 
 		applybutton =Gtk.Button(label = "Apply")
 		hbox.pack_start(applybutton,False,False,0)
+		applybutton.connect("clicked", self.apply_clicked, currency_combo)
 
 
 		return row
 
 	def apply_clicked(self, button, *data):
-		controller.filterPDML(data[0].get_text())
+		controller.filterPDML(data[0].get_active_text())
+		print "DATA: " + data[0].get_active_text()
 
 	def on_savedfiltercombo(self, combo):
 		text = combo.get_active_text()

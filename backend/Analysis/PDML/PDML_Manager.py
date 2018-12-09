@@ -59,5 +59,3 @@ class PDML:
          pdmlFile = pdmlFile[0] + "_v" + str(version) +".pdml"
          print "pdmlFile: " + pdmlFile
          self._filename = path + pdmlFile
-
-p = PDML()
