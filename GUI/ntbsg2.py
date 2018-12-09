@@ -8,8 +8,12 @@ from gi.repository.GdkPixbuf import Pixbuf
 sys.path.append('/root/Documents/team10ss')
 from controller import Controller
 
+sys.path.append('/root/Documents/team10ss/backend/Analysis/PDML')
+from PDML_Manager import PDML
 
 controller = Controller()
+pdml = PDML()
+
 
 class mainWindow(Gtk.Window):
 	def __init__(self):
@@ -441,7 +445,7 @@ class mainWindow(Gtk.Window):
 		row = Gtk.ListBoxRow()
 		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 		row.add(hbox)
-
+		#  pdmlFile = pdml.getFilename()
 		frame = [
 		["Frame 718: frame, eth, ic, tcp",
 		["Frame 718:74 bytes on wire (592 bits), 74 bytes captured (592 bits) on interface 0", True],

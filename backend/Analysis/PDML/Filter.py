@@ -12,10 +12,10 @@ class Filter:
         print "PDML: " + pdmlFile
         tree = et.parse(pdmlFile)
         root = tree.getroot()
-        found = 0
 
         for packet in root.iter('packet'):
             for proto in packet.findall('proto'):
+                # for field in proto.findall('field'):
                 # if protocol icmp is found
                 # if proto.get('name') == 'icmp':
                 #     # another for loop since you are looking inside of the protocol
@@ -31,18 +31,6 @@ class Filter:
 
                 if proto.get('name') != filter:
                     packet.remove(proto)
-        # f= open("/root/Documents/team10ss/backend/Workspace/sessionCount.txt","r+")
-        # count = f.read()
-        # path = "/root/Documents/team10ss/backend/Workspace/Session_" + count.rstrip() + "/"
-        # # dirs = os.listdir( path )
-        # versions = open(path+"versions", "r+")
-        # version = versions.read()
-        # version = int(version)+1
-        # versions = open(path+"versions", "w+")
-        # versions.write(str(version))
-        # pdmlFile = pdmlFile.split('_v')
-        #
-        # pdmlFile = pdmlFile[0] + "_v" + str(version) +".pdml"
         pdml.setFilename()
         print pdml.getFilename()
         tree.write(pdml.getFilename())
