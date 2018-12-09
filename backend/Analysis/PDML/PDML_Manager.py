@@ -21,11 +21,11 @@ class PDML:
          for file in dirs:
              filename = file.split('_v')
              filename = filename[-1].split('.')
-             if filename[0] == str(version):
-                 # print "THIS SHOULD PRINTTTTTTTTTTTTTT"
+             if filename[0] == str(version.rstrip()):
+                 print "THIS SHOULD PRINTTTTTTTTTTTTTT"
                  pdmlFile = file
                  break
-         self._filename = pdmlFile
+         self._filename = path + pdmlFile
 
     def getFilename(self):
         return self._filename
@@ -45,7 +45,6 @@ class PDML:
                  print "THIS SHOULD PRINTTTTTTTTTTTTTT"
                  pdmlFile = file
                  break
-         self._filename = pdmlFile
+         self._filename = path + pdmlFile
 
 p = PDML()
-print p.getx()
