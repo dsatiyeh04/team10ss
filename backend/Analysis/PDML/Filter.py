@@ -18,10 +18,10 @@ class Filter:
                 # for field in proto.findall('field'):
                 # if protocol icmp is found
                 # if proto.get('name') == 'icmp':
-                #     # another for loop since you are looking inside of the protocol
-                #     for field in proto.findall('field'):
-                #         if field.get('showname') == 'Type: 8 (Echo (ping) request)':
-                #             found = 1
+                    # another for loop since you are looking inside of the protocol
+                    # for field in proto.findall('field'):
+                        # if field.get('showname') == 'Type: 8 (Echo (ping) request)':
+                        # pdml.addField(field.get('showname'))
                 #
                 #     if found == 0:
                 #         packet.remove(proto)

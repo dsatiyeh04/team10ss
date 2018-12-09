@@ -17,3 +17,7 @@ class Controller:
     def filterPDML(self, filter):
         foo = Filter()
         foo.parsePacket(filter)
+
+    def tagFields(self, field, tagname, tagDescription):
+        foo = Tag()
+        foo.tagField(field, tagname, tagDescription)

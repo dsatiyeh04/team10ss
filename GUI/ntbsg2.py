@@ -11,8 +11,12 @@ from controller import Controller
 sys.path.append('/root/Documents/team10ss/backend/Analysis/PDML')
 from PDML_Manager import PDML
 
+sys.path.append('/root/Documents/team10ss/backend/Analysis/Field')
+from Field_Manager import Field
+
 controller = Controller()
 pdml = PDML()
+field = Field()
 
 
 class mainWindow(Gtk.Window):
@@ -196,12 +200,13 @@ class mainWindow(Gtk.Window):
 		hbox.pack_start(vbox, False, True, 0)
 
 		label2 =Gtk.Label()
-		label2.set_markup("Saved Tag")
+		label2.set_markup("Tag Names")
 		vbox.pack_start(label2,False,True,0)
 
 
-		currencies = ["Euro", "US Dollars", "British Pound", "Japanese Yen",
-		"Russian Ruble", "Mexican peso", "Swiss franc"]
+		# currencies = ["Euro", "US Dollars", "British Pound", "Japanese Yen",
+		# "Russian Ruble", "Mexican peso", "Swiss franc"]
+		currencies = field.getFields()
 		currency_combo = Gtk.ComboBoxText()
 		currency_combo.set_entry_text_column(0)
 		currency_combo.connect("changed", self.on_currency_combo_changed)
