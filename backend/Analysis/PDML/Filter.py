@@ -9,6 +9,7 @@ class Filter:
     def parsePacket(self):
         pdml = PDML()
         pdmlFile = pdml.getFilename()
+        print "PDML: " + pdmlFile
         tree = et.parse(pdmlFile)
         root = tree.getroot()
         found = 0
@@ -30,19 +31,20 @@ class Filter:
 
                 if proto.get('name') != 'icmp':
                     packet.remove(proto)
-        f= open("/root/Documents/team10ss/backend/Workspace/sessionCount.txt","r+")
-        count = f.read()
-        path = "/root/Documents/team10ss/backend/Workspace/Session_" + count.rstrip() + "/"
-        # dirs = os.listdir( path )
-        versions = open(path+"versions", "r+")
-        version = versions.read()
-        version = int(version)+1
-        versions = open(path+"versions", "w+")
-        versions.write(str(version))
-        pdmlFile = pdmlFile.split('_v')
-
-        pdmlFile = pdmlFile[0] + "_v" + str(version) +".pdml"
-        tree.write(pdmlFile)
-        # pdmlFile = setFilename()
+        # f= open("/root/Documents/team10ss/backend/Workspace/sessionCount.txt","r+")
+        # count = f.read()
+        # path = "/root/Documents/team10ss/backend/Workspace/Session_" + count.rstrip() + "/"
+        # # dirs = os.listdir( path )
+        # versions = open(path+"versions", "r+")
+        # version = versions.read()
+        # version = int(version)+1
+        # versions = open(path+"versions", "w+")
+        # versions.write(str(version))
+        # pdmlFile = pdmlFile.split('_v')
+        #
+        # pdmlFile = pdmlFile[0] + "_v" + str(version) +".pdml"
+        pdml.setFilename()
+        print pdml.getFilename()
+        tree.write(pdml.getFilename())
 filter = Filter()
 filter.parsePacket()

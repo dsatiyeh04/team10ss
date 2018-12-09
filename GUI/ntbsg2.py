@@ -400,8 +400,7 @@ class mainWindow(Gtk.Window):
 		savefilterlabel.set_markup("<b>Saved Filter</b> ")
 		hbox.pack_start(savefilterlabel, False, True, 0)
 
-		currencies = ["Euro", "US Dollars", "British Pound", "Japanese Yen",
-		"Russian Ruble", "Mexican peso", "Swiss franc"]
+		currencies = ["icmp","tcp","dns"]
 		currency_combo = Gtk.ComboBoxText()
 		currency_combo.set_entry_text_column(0)
 		currency_combo.connect("changed", self.on_savedfiltercombo)

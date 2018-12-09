@@ -19,10 +19,12 @@ class PDML:
          version = versions.read()
          pdmlFile = ''
          for file in dirs:
+             # print file
              filename = file.split('_v')
              filename = filename[-1].split('.')
+             # print "version: " + version
              if filename[0] == str(version.rstrip()):
-                 print "THIS SHOULD PRINTTTTTTTTTTTTTT"
+                 # print "THIS SHOULD PRINTTTTTTTTTTTTTT"
                  pdmlFile = file
                  break
          self._filename = path + pdmlFile
@@ -39,12 +41,23 @@ class PDML:
          version = versions.read()
          pdmlFile = ''
          for file in dirs:
+             print "file: " + file
              filename = file.split('_v')
              filename = filename[-1].split('.')
-             if filename[0] == str(version):
-                 print "THIS SHOULD PRINTTTTTTTTTTTTTT"
+             print "filename[0]: " + filename[0]
+             print "version: " + version
+             if filename[0] == str(version).rstrip():
+                 print "PRINT PLEEEEAASSSEEEE"
                  pdmlFile = file
+                 print pdmlFile
                  break
+         version = int(version)+1
+         versions = open(path+"versions", "w+")
+         versions.write(str(version))
+         pdmlFile = pdmlFile.split('_v')
+         print "pdmlFile[0]: " + pdmlFile[0]
+         pdmlFile = pdmlFile[0] + "_v" + str(version) +".pdml"
+         print "pdmlFile: " + pdmlFile
          self._filename = path + pdmlFile
 
 p = PDML()
