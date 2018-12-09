@@ -1,3 +1,11 @@
+#  _    _  _  _      _              _
+# | |  | |(_)| |    | |            | |
+# | |  | | _ | |  __| |  ___  __ _ | |_  ___
+# | |/\| || || | / _` | / __|/ _` || __|/ __|
+# \  /\  /| || || (_| || (__| (_| || |_ \__ \
+#  \/  \/ |_||_| \__,_| \___|\__,_| \__||___/
+
+
 import os
 
 
@@ -11,16 +19,22 @@ class PDMLConverter:
         else:
             f= open("/root/Documents/team10ss/backend/Workspace/sessionCount.txt","r+")
             count = f.read()
-            path = "/root/Documents/team10ss/backend/Workspace/session" + count.rstrip() + "/"
+            path = "/root/Documents/team10ss/backend/Workspace/Session_" + count.rstrip() + "/"
             if(os.path.isdir(path)):
                 count = int(count)+1
-                path = "/root/Documents/team10ss/backend/Workspace/session" + str(count).rstrip() + "/"
+                path = "/root/Documents/team10ss/backend/Workspace/Session_" + str(count).rstrip() + "/"
                 os.mkdir(path)
+                versions = open(path+"versions", "w+")
+                versions.write("1")
                 f= open("/root/Documents/team10ss/backend/Workspace/sessionCount.txt","w+")
                 f.write(str(count))
             else:
                 os.mkdir(path)
+                versions = open(path+"versions", "w+")
+                versions.write("1")
             pdml = self.pcap.split('/')
             pdml = pdml[-1].split('.')
-            cmd = "tshark -T pdml -r " + str(self.pcap) + " > " + path + pdml[0] + ".pdml"
+            versions = open(path+"versions", "r+")
+            version = versions.read()
+            cmd = "tshark -T pdml -r " + str(self.pcap) + " > " + path + pdml[0] + "_v"+version + ".pdml"
             os.system(cmd)

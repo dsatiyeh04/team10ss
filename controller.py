@@ -4,8 +4,8 @@ import sys
 sys.path.append('/root/Documents/team10ss/backend/Workspace')
 from Workspace import PDMLConverter
 
-sys.path.append('/root/Documents/team10ss/backend/Analysis/PDML')
-from Filter import Filter
+# sys.path.append('/root/Documents/team10ss/backend/Analysis/PDML')
+# from Filter import Filter
 
 class Controller:
 
@@ -14,6 +14,6 @@ class Controller:
         foo.convertPCAP(filename)
 
 
-    def filterPDML(self, filter):
-        foo = Filter()
-        foo.parsePacket(filter)
+    # def filterPDML(self, filter):
+    #     foo = Filter()
+    #     foo.parsePacket(filter)
