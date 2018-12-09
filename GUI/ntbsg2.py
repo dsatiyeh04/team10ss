@@ -381,7 +381,7 @@ class mainWindow(Gtk.Window):
 		label1.set_markup("<b>Filter Area</b> ")
 		hbox.pack_start(label1, False, True, 0)
 
-
+		#
 		filter = Gtk.Entry()
 		# self.entry.set_text('Filter Expression')
 		hbox.pack_start(filter, False, False, 0)
