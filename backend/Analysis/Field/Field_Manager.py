@@ -12,7 +12,7 @@ sys.path.append('/root/Documents/team10ss/backend/Analysis/PDML')
 from PDML_Manager import PDML
 
 import xml.etree.ElementTree as et
-
+# Get all field names
 class Field:
     def __init__(self):
         # Get latest PDML

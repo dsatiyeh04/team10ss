@@ -138,11 +138,8 @@ class mainWindow(Gtk.Window):
 		sessionbox.pack_start(listbox_2,False, False, 0)
 
 		listbox_2.add(self.tagarearow())
-		listbox_2.add(self.nametagarea())
+		# listbox_2.add(self.nametagarea())
 		listbox_2.add(self.tagname())
-		listbox_2.add(self.taggedfield())
-		listbox_2.add(self.tagDescription())
-		listbox_2.add(self.updatingtag())
 
 
 		return sessionbox
@@ -197,27 +194,7 @@ class mainWindow(Gtk.Window):
 		return row
 
 	def nametagarea(self):
-		row = Gtk.ListBoxRow()
-		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-		row.add(hbox)
-		vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-		hbox.pack_start(vbox, False, True, 0)
 
-		label2 =Gtk.Label()
-		label2.set_markup("Tag Names")
-		vbox.pack_start(label2,False,True,0)
-
-
-		# currencies = ["Euro", "US Dollars", "British Pound", "Japanese Yen",
-		# "Russian Ruble", "Mexican peso", "Swiss franc"]
-		currencies = field.getFields()
-		currency_combo = Gtk.ComboBoxText()
-		currency_combo.set_entry_text_column(0)
-		currency_combo.connect("changed", self.on_currency_combo_changed)
-		for currency in currencies:
-			currency_combo.append_text(currency)
-
-		hbox.pack_start(currency_combo, False, True, 0)
 
 		return row
 
@@ -227,6 +204,8 @@ class mainWindow(Gtk.Window):
 			print("Selected: currency=%s" % text)
 
 	def tagname(self):
+		# TAG NAME
+		box = Gtk.ListBox()
 		row = Gtk.ListBoxRow()
 		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 		row.add(hbox)
@@ -237,60 +216,78 @@ class mainWindow(Gtk.Window):
 		label2.set_markup("Tag \n Name")
 		vbox.pack_start(label2,False,True,0)
 
-		self.entry = Gtk.Entry()
-		self.entry.set_text('Tag Name')
+		tagnameEntry = Gtk.Entry()
+		tagnameEntry.set_text('Tag Name')
 
-		hbox.pack_start(self.entry, False, True, 0)
+		hbox.pack_start(tagnameEntry, False, True, 0)
 
-		return row
-
-	def taggedfield(self):
-	 	row = Gtk.ListBoxRow()
-	 	hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-	 	row.add(hbox)
-	 	vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-	 	hbox.pack_start(vbox, False, True, 0)
-
-	 	label2 =Gtk.Label()
-	 	label2.set_markup("Tagged \n Field")
-	 	vbox.pack_start(label2,False,True,0)
-
-	 	self.entry = Gtk.Entry()
-	 	self.entry.set_text('Tagged Field')
-
-	 	hbox.pack_start(self.entry, False, True, 0)
-
-	 	return row
-
-	def tagDescription(self):
-		row = Gtk.ListBoxRow()
+		# TAG DESCRIPTION
+		row1 = Gtk.ListBoxRow()
 		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-		row.add(hbox)
+		row1.add(hbox)
 		vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 		hbox.pack_start(vbox, False, True, 0)
-
 		label2 =Gtk.Label()
 		label2.set_markup("Tagged \n Description")
 		vbox.pack_start(label2,False ,True,0)
 
-		self.entry = Gtk.Entry()
-		self.entry.set_text('Tagged Description')
+		tagDescriptionEntry = Gtk.Entry()
+		tagDescriptionEntry.set_text('Tagged Description')
 
-		hbox.pack_start(self.entry, False, True, 0)
-		return row
+		hbox.pack_start(tagDescriptionEntry, False, True, 0)
 
-	def updatingtag(self):
 
-		row = Gtk.ListBoxRow()
+
+		# THIS IS FIELD NAME
+		row3 = Gtk.ListBoxRow()
+		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+		row3.add(hbox)
+		vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+		hbox.pack_start(vbox, False, True, 0)
+
+		label2 =Gtk.Label()
+		label2.set_markup("Field Names")
+		vbox.pack_start(label2,False,True,0)
+
+		currencies = field.getFields()
+		currency_combo = Gtk.ComboBoxText()
+		currency_combo.set_entry_text_column(0)
+		currency_combo.connect("changed", self.on_currency_combo_changed)
+		for currency in currencies:
+			currency_combo.append_text(currency)
+
+		hbox.pack_start(currency_combo, False, True, 0)
+
+		# BUTTONS
+		row2 = Gtk.ListBoxRow()
 		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-		row.add(hbox)
+		row2.add(hbox)
 
 		update = Gtk.Button(label = "Update")
 		cancel = Gtk.Button(label = "Cancel")
 
 		hbox.add(update)
 		hbox.add(cancel)
-		return row
+		# BUTTONS
+		row2 = Gtk.ListBoxRow()
+		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+		row2.add(hbox)
+		update = Gtk.Button(label = "Update")
+		cancel = Gtk.Button(label = "Cancel")
+		update.connect("clicked", self.updateTag_clicked, currency_combo, tagnameEntry, tagDescriptionEntry)
+		hbox.add(update)
+		hbox.add(cancel)
+
+		box.add(row3)
+		box.add(row)
+		box.add(row1)
+		box.add(row2)
+		return box
+
+
+	def updateTag_clicked(self, button, *data):
+		controller.tagFields(data[0].get_active_text(), data[1].get_text().lower(), data[2].get_text().lower())
+
 
 	def pdmlviewCol(self):
 		sessionbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -458,7 +455,7 @@ class mainWindow(Gtk.Window):
 		self.model =Gtk.TreeStore(str)
 		pdmlFile = pdml.getFilename()
 		doc =dom.parse(pdmlFile)
-		
+
 		self.addtotree(doc.childNodes[0],None)
 		#treeview
 		treeview = Gtk.TreeView(self.model)
@@ -474,81 +471,12 @@ class mainWindow(Gtk.Window):
 		hbox.add( treeview)
 		treeview.show()
 
-		# print "PDML: " + pdmlFile
 
-		# tree = et.parse(pdmlFile)
-		# root = tree.getroot()
-		# fields = []
-		# hbox.store = Gtk.TreeStore(str)
-		# for packet in root.iter('packet'):
-		# 	# piter=hbox.store.append(packet)
-		# 	for proto in packet.findall('proto'):
-		# 		for field in proto.findall('field'):
-		# 			piter=hbox.store.append([field])
-		
-
-		#frame = [
-		#["Frame 718: frame, eth, ic, tcp",
-		#["Frame 718:74 bytes on wire (592 bits), 74 bytes captured (592 bits) on interface 0", True],
-		#["Ehernet II: Src: Elitegro_dd:12:cd(00:19:21:dd:12:cd), Dst:Broadcom_de:ad:05(00:10:18:de:ad:05)", False],
-		#["Internet Control Message Protocol",False],
-		#["Tramsimission Control Protocol, Src Port: (55394), Dst Port: 80 (80), Seq:0,Len:0",False]],
-		#["Frame 767: frame, eth, ip, tcp", ["frame", False]],
-		#["Frame 768: frame, eth, ip, tcp", ["frame", False]],
-		#["Frame 767: frame, eth, ip, tcp", ["frame", False]]
-		#]
-		# the data are stored in the model
-		# create a treestore with two columns
-		#hbox.store = Gtk.TreeStore(str, str, str)
-		# fill in the model
-		#for i in range(len(frame)):
-			# the iter piter is returned when appending the author in the first column
-			# and False in the second
-			#piter = hbox.store.append(None, [frame[i][0], False])
-			# append the books and the associated boolean value as children of
-			# the author
-			#j = 1
-			#while j < len(frame[i]):
-				#hbox.store.append(piter, frame[i][j])
-				#j += 1
-
-		# the treeview shows the model
-		# create a treeview on the model self.store
-		#view = Gtk.TreeView()
-		#view.set_model(hbox.store)
-		# the cellrenderer for the first column - text
-		#renderer_in_framebutt = Gtk.CellRendererToggle()
-
-		#column_in_size = Gtk.TreeViewColumn("Frame Button", renderer_in_framebutt, active =0)
-
-
-		#view.append_column(column_in_size)
-
-		#renderer_frame = Gtk.CellRendererText()
-
-		#column_frame = Gtk.TreeViewColumn("Frame", renderer_frame, text=0)
-
-		#view.append_column(column_frame)
-
-		#renderer_in_size = Gtk.CellRendererToggle()
-
-		#column_in_size = Gtk.TreeViewColumn("Size", renderer_in_size, text=0)
-
-
-		#view.append_column(column_in_size)
-
-		#renderer_in_out.connect("toggled", hbox.on_toggled())
-		# add the treeview to the window
-		#hbox.add(view)
 		hbox.add(self.removalclearbutt())
 
-		
+
 		return row
-	# def addtotree(self, e, parent):
-	# 	if isinstance(e, dom.Element):
-	# 		me = self.model.append(parent,[e.nodeName])
-	# 		for ch in e.childNodes:
-	# 			self.addtotree(ch, me)
+
 	def nodeToText(self, node):
 		text = []
 		text.append("<{}".format(node.nodeName))

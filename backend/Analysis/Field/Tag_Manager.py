@@ -14,7 +14,7 @@ from PDML_Manager import PDML
 
 import xml.etree.ElementTree as et
 class Tag:
-    def tagField(self, taggedField, tagName, tagDescription):
+    def tagFields(self, taggedField, tagName, tagDescription):
         # Get the latest PDML
         pdml = PDML()
         pdmlFile = pdml.getFilename()
