@@ -286,7 +286,7 @@ class mainWindow(Gtk.Window):
 
 
 	def updateTag_clicked(self, button, *data):
-		controller.tagFields(data[0].get_active_text(), data[1].get_text().lower(), data[2].get_text().lower())
+		controller.tagFields(data[0].get_active_text(), data[1].get_text().lower().replace(" ", ""), data[2].get_text().lower().replace(" ", ""))
 
 
 	def pdmlviewCol(self):
