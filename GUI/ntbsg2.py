@@ -1,5 +1,7 @@
 import gi
 import sys
+import xml.etree.ElementTree as et
+import xml.dom.minidom as dom
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio
@@ -17,6 +19,8 @@ from Field_Manager import Field
 controller = Controller()
 pdml = PDML()
 field = Field()
+
+
 
 
 class mainWindow(Gtk.Window):
@@ -450,63 +454,117 @@ class mainWindow(Gtk.Window):
 		row = Gtk.ListBoxRow()
 		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 		row.add(hbox)
-		#  pdmlFile = pdml.getFilename()
-		frame = [
-		["Frame 718: frame, eth, ic, tcp",
-		["Frame 718:74 bytes on wire (592 bits), 74 bytes captured (592 bits) on interface 0", True],
-		["Ehernet II: Src: Elitegro_dd:12:cd(00:19:21:dd:12:cd), Dst:Broadcom_de:ad:05(00:10:18:de:ad:05)", False],
-		["Internet Control Message Protocol",False],
-		["Tramsimission Control Protocol, Src Port: (55394), Dst Port: 80 (80), Seq:0,Len:0",False]],
-		["Frame 767: frame, eth, ip, tcp", ["frame", False]],
-		["Frame 768: frame, eth, ip, tcp", ["frame", False]],
-		["Frame 767: frame, eth, ip, tcp", ["frame", False]]
-		]
+
+		self.model =Gtk.TreeStore(str)
+		pdmlFile = pdml.getFilename()
+		doc =dom.parse(pdmlFile)
+		
+		self.addtotree(doc.childNodes[0],None)
+		#treeview
+		treeview = Gtk.TreeView(self.model)
+		#colums
+		col0 =Gtk.TreeViewColumn("Name")
+		self.cell0 = Gtk.CellRendererText()
+		# first column
+		treeview.append_column( col0)
+		col0.pack_start( self.cell0,True)
+		col0.set_attributes( self.cell0, text=0)
+		col0.set_sort_column_id( 0) # make column sortable using column 0 data
+		# add the treeview to the parent and show it
+		hbox.add( treeview)
+		treeview.show()
+
+		# print "PDML: " + pdmlFile
+
+		# tree = et.parse(pdmlFile)
+		# root = tree.getroot()
+		# fields = []
+		# hbox.store = Gtk.TreeStore(str)
+		# for packet in root.iter('packet'):
+		# 	# piter=hbox.store.append(packet)
+		# 	for proto in packet.findall('proto'):
+		# 		for field in proto.findall('field'):
+		# 			piter=hbox.store.append([field])
+		
+
+		#frame = [
+		#["Frame 718: frame, eth, ic, tcp",
+		#["Frame 718:74 bytes on wire (592 bits), 74 bytes captured (592 bits) on interface 0", True],
+		#["Ehernet II: Src: Elitegro_dd:12:cd(00:19:21:dd:12:cd), Dst:Broadcom_de:ad:05(00:10:18:de:ad:05)", False],
+		#["Internet Control Message Protocol",False],
+		#["Tramsimission Control Protocol, Src Port: (55394), Dst Port: 80 (80), Seq:0,Len:0",False]],
+		#["Frame 767: frame, eth, ip, tcp", ["frame", False]],
+		#["Frame 768: frame, eth, ip, tcp", ["frame", False]],
+		#["Frame 767: frame, eth, ip, tcp", ["frame", False]]
+		#]
 		# the data are stored in the model
 		# create a treestore with two columns
-		hbox.store = Gtk.TreeStore(str, bool)
+		#hbox.store = Gtk.TreeStore(str, str, str)
 		# fill in the model
-		for i in range(len(frame)):
+		#for i in range(len(frame)):
 			# the iter piter is returned when appending the author in the first column
 			# and False in the second
-			piter = hbox.store.append(None, [frame[i][0], False])
+			#piter = hbox.store.append(None, [frame[i][0], False])
 			# append the books and the associated boolean value as children of
 			# the author
-			j = 1
-			while j < len(frame[i]):
-				hbox.store.append(piter, frame[i][j])
-				j += 1
+			#j = 1
+			#while j < len(frame[i]):
+				#hbox.store.append(piter, frame[i][j])
+				#j += 1
 
 		# the treeview shows the model
 		# create a treeview on the model self.store
-		view = Gtk.TreeView()
-		view.set_model(hbox.store)
+		#view = Gtk.TreeView()
+		#view.set_model(hbox.store)
 		# the cellrenderer for the first column - text
-		renderer_in_framebutt = Gtk.CellRendererToggle()
+		#renderer_in_framebutt = Gtk.CellRendererToggle()
 
-		column_in_size = Gtk.TreeViewColumn("Frame Button", renderer_in_framebutt, active =1)
-
-
-		view.append_column(column_in_size)
-
-		renderer_frame = Gtk.CellRendererText()
-
-		column_frame = Gtk.TreeViewColumn("Frame", renderer_frame, text=0)
-
-		view.append_column(column_frame)
-
-		renderer_in_size = Gtk.CellRendererToggle()
-
-		column_in_size = Gtk.TreeViewColumn("Size", renderer_in_size, text=0)
+		#column_in_size = Gtk.TreeViewColumn("Frame Button", renderer_in_framebutt, active =0)
 
 
-		view.append_column(column_in_size)
+		#view.append_column(column_in_size)
+
+		#renderer_frame = Gtk.CellRendererText()
+
+		#column_frame = Gtk.TreeViewColumn("Frame", renderer_frame, text=0)
+
+		#view.append_column(column_frame)
+
+		#renderer_in_size = Gtk.CellRendererToggle()
+
+		#column_in_size = Gtk.TreeViewColumn("Size", renderer_in_size, text=0)
+
+
+		#view.append_column(column_in_size)
 
 		#renderer_in_out.connect("toggled", hbox.on_toggled())
 		# add the treeview to the window
-		hbox.add(view)
+		#hbox.add(view)
 		hbox.add(self.removalclearbutt())
 
+		
 		return row
+	# def addtotree(self, e, parent):
+	# 	if isinstance(e, dom.Element):
+	# 		me = self.model.append(parent,[e.nodeName])
+	# 		for ch in e.childNodes:
+	# 			self.addtotree(ch, me)
+	def nodeToText(self, node):
+		text = []
+		text.append("<{}".format(node.nodeName))
+
+		if node.hasAttributes():
+			for k, v in node.attributes.items():
+				text.append("{}=\"{}\"".format(k, v))
+
+		text.append(">")
+		return ' '.join(text)
+
+	def addtotree(self, e, parent):
+		if isinstance(e, dom.Element):
+			me = self.model.append(parent, [self.nodeToText(e)])
+			for child in e.childNodes:
+				self.addtotree(child, me)
 
 	def removalclearbutt(self):
 			row = Gtk.ListBoxRow()
