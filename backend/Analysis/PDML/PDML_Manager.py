@@ -11,20 +11,20 @@ import os
 
 class PDML:
     def __init__(self):
+        # Get latest session from file
          f= open("/root/Documents/team10ss/backend/Workspace/sessionCount.txt","r+")
          count = f.read()
          path = "/root/Documents/team10ss/backend/Workspace/Session_" + count.rstrip() + "/"
          dirs = os.listdir( path )
+         # Get latest version number from file
          versions = open(path+"versions", "r+")
          version = versions.read()
          pdmlFile = ''
          for file in dirs:
-             # print file
              filename = file.split('_v')
              filename = filename[-1].split('.')
-             # print "version: " + version
+             # Get the latest PDML file
              if filename[0] == str(version.rstrip()):
-                 # print "THIS SHOULD PRINTTTTTTTTTTTTTT"
                  pdmlFile = file
                  break
          self._filename = path + pdmlFile
@@ -32,30 +32,29 @@ class PDML:
     def getFilename(self):
         return self._filename
 
+
     def setFilename(self):
+         # Get latest session from file
          f= open("/root/Documents/team10ss/backend/Workspace/sessionCount.txt","r+")
          count = f.read()
          path = "/root/Documents/team10ss/backend/Workspace/Session_" + count.rstrip() + "/"
          dirs = os.listdir( path )
+         # Get latest version number from file
          versions = open(path+"versions", "r+")
          version = versions.read()
          pdmlFile = ''
          for file in dirs:
-             print "file: " + file
              filename = file.split('_v')
              filename = filename[-1].split('.')
-             print "filename[0]: " + filename[0]
-             print "version: " + version
+             # Get the latest PDML file
              if filename[0] == str(version).rstrip():
-                 print "PRINT PLEEEEAASSSEEEE"
                  pdmlFile = file
-                 print pdmlFile
                  break
+         # Increment version number
          version = int(version)+1
          versions = open(path+"versions", "w+")
          versions.write(str(version))
          pdmlFile = pdmlFile.split('_v')
-         print "pdmlFile[0]: " + pdmlFile[0]
+         # Create new PDML file with newest version
          pdmlFile = pdmlFile[0] + "_v" + str(version) +".pdml"
-         print "pdmlFile: " + pdmlFile
          self._filename = path + pdmlFile
