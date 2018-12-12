@@ -58,3 +58,21 @@ class PDML:
          # Create new PDML file with newest version
          pdmlFile = pdmlFile[0] + "_v" + str(version) +".pdml"
          self._filename = path + pdmlFile
+
+    def getLatest(self):
+        f= open("/root/Documents/team10ss/backend/Workspace/sessionCount.txt","r+")
+        count = f.read()
+        path = "/root/Documents/team10ss/backend/Workspace/Session_" + count.rstrip() + "/"
+        dirs = os.listdir( path )
+        # Get latest version number from file
+        versions = open(path+"versions", "r+")
+        version = versions.read()
+        pdmlFile = ''
+        for file in dirs:
+            filename = file.split('_v')
+            filename = filename[-1].split('.')
+            # Get the latest PDML file
+            if filename[0] == str(version.rstrip()):
+                pdmlFile = file
+                break
+        return path + pdmlFile

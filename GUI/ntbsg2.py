@@ -20,8 +20,8 @@ controller = Controller()
 pdml = PDML()
 field = Field()
 
-
-
+pdmlFile = pdml.getLatest()
+# # print pdmlFile
 
 class mainWindow(Gtk.Window):
 	def __init__(self):
@@ -62,8 +62,8 @@ class mainWindow(Gtk.Window):
 		hb.pack_end(closeSession)
 		hb.pack_end(openSession)
 		hb.pack_end(createSession)
-		window = messageTypeWindow()
-		window.show_all()
+		# window = messageTypeWindow()
+		# window.show_all()
 
 		#stageboxes
 
@@ -287,6 +287,10 @@ class mainWindow(Gtk.Window):
 
 	def updateTag_clicked(self, button, *data):
 		controller.tagFields(data[0].get_active_text(), data[1].get_text().lower().replace(" ", ""), data[2].get_text().lower().replace(" ", ""))
+		self.destroy()
+		win = mainWindow()
+		win.show_all()
+		Gtk.main()
 
 
 	def pdmlviewCol(self):
@@ -348,11 +352,9 @@ class mainWindow(Gtk.Window):
 		self.entry.set_text('New PDML State Name')
 		hbox.pack_start(self.entry, False, False, 0)
 
-		label2 =Gtk.Button(label = "Save as New \n PDML State")
-		hbox.pack_start(label2,False,False,0)
-
-		savecurrButton =Gtk.Button(label = "Save Current \n PDML State")
-		hbox.pack_start(savecurrButton,False,False,0)
+		saveBtn =Gtk.Button(label = "Save as New \n PDML State")
+		hbox.pack_start(saveBtn,False,False,0)
+		saveBtn.connect("clicked", self.saved_clicked)
 
 		closecurrButton =Gtk.Button(label = "Close Current \n PDML State")
 		hbox.pack_start(closecurrButton,False,False,0)
@@ -369,6 +371,10 @@ class mainWindow(Gtk.Window):
 
 
 		return row
+
+	def saved_clicked(self, button):
+		print "Clicked"
+
 
 	def filterAreaName(self):
 		row = Gtk.ListBoxRow()
@@ -447,13 +453,9 @@ class mainWindow(Gtk.Window):
 
 		return row
 
-	def treeFrame(self):
-		row = Gtk.ListBoxRow()
-		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-		row.add(hbox)
-
+	def createTree(self, pdmlFile):
 		self.model =Gtk.TreeStore(str)
-		pdmlFile = pdml.getFilename()
+		pdmlFile = pdml.getLatest()
 		doc =dom.parse(pdmlFile)
 
 		self.addtotree(doc.childNodes[0],None)
@@ -467,6 +469,31 @@ class mainWindow(Gtk.Window):
 		col0.pack_start( self.cell0,True)
 		col0.set_attributes( self.cell0, text=0)
 		col0.set_sort_column_id( 0) # make column sortable using column 0 data
+
+		return treeview
+
+	def treeFrame(self):
+		row = Gtk.ListBoxRow()
+		hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+		row.add(hbox)
+
+		# self.model =Gtk.TreeStore(str)
+		# pdmlFile = pdml.getFilename()
+		# doc =dom.parse(pdmlFile)
+		#
+		# self.addtotree(doc.childNodes[0],None)
+		# #treeview
+		# global pdmlFile
+		# pdmlFile = pdml.getFilename()
+		treeview = self.createTree(pdmlFile)
+		# #colums
+		# col0 =Gtk.TreeViewColumn("Name")
+		# self.cell0 = Gtk.CellRendererText()
+		# # first column
+		# treeview.append_column( col0)
+		# col0.pack_start( self.cell0,True)
+		# col0.set_attributes( self.cell0, text=0)
+		# col0.set_sort_column_id( 0) # make column sortable using column 0 data
 		# add the treeview to the parent and show it
 		hbox.add( treeview)
 		treeview.show()
@@ -512,6 +539,7 @@ class mainWindow(Gtk.Window):
 		hbox.pack_start(self.fieldarea(),True,True,0)
 		hbox.add(self.masomenos())
 		message =Gtk.Button(label="Message Type")
+
 		hbox.pack_end(self.messagetypearea(),True,True,0)
 		hbox.pack_end(self.existingMessageType(),True,True,0)
 
