@@ -382,7 +382,10 @@ class mainWindow(Gtk.Window):
 		return row
 
 	def saved_clicked(self, button):
-		print "Clicked"
+		self.destroy()
+		win = mainWindow()
+		win.show_all()
+		Gtk.main()
 
 
 	def filterAreaName(self):
@@ -441,9 +444,15 @@ class mainWindow(Gtk.Window):
 
 		return row
 
+
+
 	def apply_clicked(self, button, *data):
 		controller.filterPDML(data[0].get_active_text())
 		print "DATA: " + data[0].get_active_text()
+		self.destroy()
+		win = mainWindow()
+		win.show_all()
+		Gtk.main()
 
 	def on_savedfiltercombo(self, combo):
 		text = combo.get_active_text()
@@ -630,20 +639,15 @@ class mainWindow(Gtk.Window):
 		bigboxfieldatt = Gtk.ListBoxRow()
 		hbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 		bigboxfieldatt.add(hbox)
+		columns = ["Field Name","Show Name","Size", "Position", "Show", "Value"]
 
-		columns = ["Field Name","Show Name","Size", "Position", "Show", "Value", "Entropy"]
-
-		fieldnameatt = [["icmp.type", "Type 8[Echo(ping)request]", "1","34", "8","08","2"],
-		["icmp.code", "Code 0", "1","35", "0x00","00","2"],
-		["icmp.checksum", "Checksum:0x6891(correct)", "0x00","36", "0x6861","6861","0"],
-		["icmp.Ident", "Identifier:0x809e", "2","38", "0x809e","809e","2"],
-		["icmp.seq", "Sequence number:0x0f00", "2","40", "0x0f00","0f00","2"]]
 
 		# the data in the model (three strings for each row, one for each column)
-		listmodel = Gtk.ListStore(str, str, str, str, str, str, str)
+		listmodel = Gtk.ListStore(str, str, str, str, str, str)
 		# append the values in the model
-		for i in range(len(fieldnameatt)):
-			listmodel.append(fieldnameatt[i])
+		fieldAtt = field.getFieldAtt()
+		for i in range(len(fieldAtt)):
+			listmodel.append(fieldAtt[i])
 
 		# a treeview to see the data stored in the model
 		view = Gtk.TreeView(model=listmodel)
