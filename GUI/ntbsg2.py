@@ -71,8 +71,8 @@ class mainWindow(Gtk.Window):
 		hb.pack_end(closeSession)
 		hb.pack_end(openSession)
 		hb.pack_end(createSession)
-		# window = messageTypeWindow()
-		# window.show_all()
+		window = messageTypeWindow()
+		window.show_all()
 
 		#stageboxes
 
@@ -558,8 +558,8 @@ class mainWindow(Gtk.Window):
 		hbox.add(self.masomenos())
 		message =Gtk.Button(label="Message Type")
 
-		hbox.pack_end(self.messagetypearea(),True,True,0)
-		hbox.pack_end(self.existingMessageType(),True,True,0)
+		# hbox.pack_end(self.messagetypearea(),True,True,0)
+		# hbox.pack_end(self.existingMessageType(),True,True,0)
 
 		return bottomrow
 
@@ -689,9 +689,10 @@ class mainWindow(Gtk.Window):
 	def on_changed(self, selection):#NOT IN USE YET
 		# get the model and the iterator that points at the data in the model
 		(model, iter) = selection.get_selected()
-		# set the label to a new value depending on the selection
-		self.label.set_text("\n %s %s %s" %
-			(model[iter][0],  model[iter][1], model[iter][2]))
+
+		print "SELECTED: " + model[iter][0]
+		# controller.createDependency()
+		controller.addFieldDependency(model[iter][0])
 		return True
 
 	def fieldareainstructions(self):
@@ -705,11 +706,6 @@ class mainWindow(Gtk.Window):
 
 
 		return row
-
-
-
-
-
 
 
 	def stagesrow(self): #OKAY
