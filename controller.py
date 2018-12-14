@@ -17,6 +17,9 @@ from Filter import Filter
 sys.path.append('/root/Documents/team10ss/backend/Analysis/Field')
 from Tag_Manager import Tag
 
+sys.path.append('/root/Documents/team10ss/backend/Analysis/PDML')
+from PLDR import PLDR
+
 class Controller:
     # PDML Converter from Workspace
     def convertPCAP(self, filename):
@@ -32,3 +35,11 @@ class Controller:
     def tagFields(self, field, tagname, tagDescription):
         foo = Tag()
         foo.tagFields(field, tagname, tagDescription)
+
+    # def createDependency(self):
+    #     foo = PLDR()
+    #     foo.createDependency()
+
+    def addFieldDependency(self, fieldName):
+        foo = PLDR()
+        foo.addFieldDependency(fieldName)
